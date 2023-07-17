@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body style="background-color: rgba(255,0,0,0.5);">
+    <h1>User Registration</h1>
+    <br>
+    <h1>User Profile</h1>
+    <h1 th:text="${user.name}">Name</h1>
+    <h1 th:text="${user.lastname}">Last Name</h1>
+    <h1 th:text="${user.email}">Email</h1>
+    <h1 th:text="${user.password}">Password</h1>
+    <h1 th:text="${user.address}">Address</h1>
+    <h2>User Login</h2><br> <br> 
+    <a href="/login">Go Back</a>
+</body>
+</html>
