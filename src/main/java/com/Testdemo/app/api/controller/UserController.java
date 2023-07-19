@@ -23,7 +23,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	//kök url yani localhost:8080 e bağlandığında Login.html çalışır.
+	//Login.html works when connected to root url localhost:8080.
 	@GetMapping("/")
 	public String home() {
 		
@@ -33,19 +33,22 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<String> loginUser(String email, String password, Model model) {
-		//Login.htmlden gelen email ve password parametresini service ile sorguluyoruz.
+		if (email == null || password == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please fill in the blanks.");
+		}
+		//We query the email and password parameter from login.html with service.
 	    User user = userService.findByEmail(email);
 	    
-	    //kullanıcı yoksa 400 hata kodu dönen mesaj iletiyoruz
+	     // if there is no user, we send a message with 400 error code
 	    if (user == null) {
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Böyle bir kullanıcı yok.");
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found .");
 	    }
 	    
-	    //gelen parametre eğer kayıtlı kullanıcının password u ile eşit değilse 400 hata kodu ile mesaj iletiyoruz 
+	    //If the incoming parameter is not equal to the password of the registered user, we send a 400 error code along with a message.
 	    if (!user.getPassword().equals(password)) {
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Geçersiz e-posta veya şifre.");
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Incorrect password.");
 	    }
-	    //Eğer şartlar uyuyorsa home.html sayfasına yönlendiriyor ve homehtml işlem yapmak için veriyi aktarıyor.
+	    //If the conditions are met, it redirects to the home.html page and passes the data to perform operations on home.html.
 
 	    return ResponseEntity.ok().body("redirect:/home");
 	}
@@ -74,6 +77,9 @@ public class UserController {
 	    if (!user.getPassword().equals(user.getPasswordRepeat())) {
 	        return "Passwords do not match.";
 	    }
+	    if (user.getPassword().length() < 4) {
+	        return "Password can not be less than 4 letters.";
+	    }
 
 	    if (!user.getEmail().matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]+$")) {
 	        return "Invalid email address.";
@@ -82,6 +88,7 @@ public class UserController {
 	    if (user.getAddress().length() < 20 || user.getAddress().length() > 250) {
 	        return "Address must be between 20 and 250 characters long.";
 	    }
+	    
 
 	    return null;
 	}

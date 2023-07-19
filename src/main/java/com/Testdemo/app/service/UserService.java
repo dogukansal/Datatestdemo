@@ -15,15 +15,18 @@ public class UserService {
 	 private List<User> users = new ArrayList<>();
 	 
 	 public void addUser(User user) {
-		    users.add(user);
-		  }
+		 users.add(user);
+		 }
+	 
 	 public List<User> getUsers() {
-		    return users;
+		  return users;
 		  }
 
-	 
 	 public User findByEmail(String email) {
-		    for (User user : users) {
+		 if (email =="") {
+			return null;
+		}
+		  for (User user : users) {
 		      if (user.getEmail().equals(email)) {
 		        return user;
 		      }
