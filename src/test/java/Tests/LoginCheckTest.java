@@ -27,7 +27,7 @@ public class LoginCheckTest {
         .param("email", email)
         .param("password", password)
         .when()
-        .get(baseurl + "/login")
+        .post(baseurl + "/login")
         .then()
         .statusCode(200);
 	}
@@ -41,7 +41,7 @@ public class LoginCheckTest {
         .param("email", email)
         .param("password", password)
         .when()
-        .get(baseurl + "/login")
+        .post(baseurl + "/login")
         .then()
         .statusCode(400);
 	}
@@ -55,7 +55,7 @@ public class LoginCheckTest {
 	    .param("email", email)
 	    .param("password", password)
 	    .when()
-	    .get(baseurl + "/login")
+	    .post(baseurl + "/login")
 	    .then()
 	    .statusCode(404);
 	}
@@ -68,7 +68,7 @@ public class LoginCheckTest {
 	    .param("email", email)
 	    .param("password", password)
 	    .when()
-	    .get(baseurl + "/login")
+	    .post(baseurl + "/login")
 	    .then()
 	    .statusCode(400);
 	}
@@ -81,7 +81,7 @@ public class LoginCheckTest {
 	    .param("email", email)
 	    .param("password", password)
 	    .when()
-	    .get(baseurl + "/login")
+	    .post(baseurl + "/login")
 	    .then()
 	    .statusCode(400);
 	}
@@ -93,7 +93,7 @@ public class LoginCheckTest {
 	    .given()
 	    .param("email", email)
 	    .when()
-	    .get(baseurl + "/login")
+	    .post(baseurl + "/login")
 	    .then()
 	    .statusCode(400);
 	}
@@ -105,7 +105,7 @@ public class LoginCheckTest {
 	    .given()
 	    .param("password", password)
 	    .when()
-	    .get(baseurl + "/login")
+	    .post(baseurl + "/login")
 	    .then()
 	    .statusCode(400);
 	}
